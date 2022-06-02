@@ -23,9 +23,9 @@ s = Solution()
 ans = s.numRescueBoats([3,2,2,1], 3)  
 
 # sort = 1,2,2,3 and limit 3
-3
-1,2
-2
+# 3
+# 1,2
+# 2
 
 print(ans)    
     
