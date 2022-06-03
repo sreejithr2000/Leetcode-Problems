@@ -6,10 +6,10 @@ class ListNode:
 
 class Solution:
     def hasCycle(self, head: ListNode) -> bool:
-        arr = []
-        while head is not None:
-            arr.append(head.val)
-        print(arr)
+        # arr = []
+        # while head is not None:
+        #     arr.append(head.val)
+        # print(arr)
         
         slow = head
         fast = head
