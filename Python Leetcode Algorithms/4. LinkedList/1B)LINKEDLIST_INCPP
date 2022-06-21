@@ -1,0 +1,258 @@
+#include <iostream>
+using namespace std;
+class Node
+{
+    public:
+    int data;
+    Node* next;
+}*head,*last,*temp,*head1,*last1,*temp1,*th;
+void create(int A[],int n)
+{
+    head=new Node;
+    last=new Node;
+
+
+    head->data=A[0];
+    head->next=nullptr;
+    last=head;
+    for(int i=1;i<n;i++)
+    {
+        temp=new Node;
+        temp->data=A[i];
+        temp->next=nullptr;
+        last->next=temp;
+        last=temp;
+    }
+}
+void create2(int B[],int n1)
+{
+    head1=new Node;
+    last1=new Node;
+
+
+    head1->data=B[0];
+    head1->next=nullptr;
+    last1=head1;
+    for(int i=1;i<n1;i++)
+    {
+        temp1=new Node;
+        temp1->data=B[i];
+        temp1->next=nullptr;
+        last1->next=temp1;
+        last1=temp1;
+    }
+}
+void display(Node *p)
+{
+    while(p!=nullptr)
+    {
+        cout<<p->data<<endl;
+        p=p->next;
+    }
+}
+void Rdisplay(Node *p)
+{
+    if(p!=nullptr)
+    {
+
+        Rdisplay(p->next);
+
+        cout<<p->data<<endl;
+    }
+}
+int countt(Node *p)
+{
+    int c=0;
+    while(p!=nullptr)
+    {
+        c++;
+        p=p->next;
+    }
+    return c;
+}
+int sum(Node *p)
+{
+    int s=0;
+    while(p!=nullptr)
+    {
+        s+=p->data;
+        p=p->next;
+    }
+    return s;
+}
+int maxi(Node *p)
+{
+    int ln=-32768;
+    while(p!=nullptr)
+    {
+        if(p->data>ln)
+        {
+            ln=p->data;
+        }
+        p=p->next;
+
+    }
+    return ln;
+}
+int mini(Node *p)
+{
+    int sn=32767;
+    while(p!=nullptr)
+    {
+        if(p->data<sn)
+     {
+        sn=p->data;
+     }
+      p=p->next;
+    }
+    return sn;
+}
+Node* Search(Node* p,int key)
+{
+    while(p!=nullptr)
+    {
+        if(key==p->data)
+        {
+            return p;
+        }
+
+        p=p->next;
+    }
+    return nullptr;
+}
+Node* ILSearch(Node* p,int key)
+{
+    Node* q=nullptr;
+    while(p!=nullptr)
+    {
+        if(p->data==key)
+        {
+         q->next=p->next;
+         p->next=head;
+         head=p;
+        }
+        q=p;
+        p=p->next;
+
+
+    }
+    return nullptr;
+}
+void InsertInUn(Node* p,int pos,int element)
+{
+    Node* q;
+    Node* t;
+    if(pos==0)
+    {
+        t=new Node;
+        t->data=element;
+        t->next=head;
+        head=t;
+    }
+    else if(pos>0)
+    {
+        q=head;
+        for(int i=0;i<pos-1&&q;i++){q=q->next;}
+        if(q)
+        {
+        t=new Node;
+        t->data=element;
+        t->next=q->next;
+        q->next=t;
+        }
+
+    }
+}
+
+void ReverseTheLinks(Node* p)
+{
+    Node *q=nullptr,*r=nullptr;
+    while(p!=nullptr)
+    {
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+    head=q;
+
+
+}
+void RecursiveLinks(Node *q,Node *p)
+{
+
+    if(p!=nullptr)
+    {
+        RecursiveLinks(p,p->next);
+        p->next=q;
+    }
+    else{
+        head=q;
+    }
+}
+void Merge(Node *first,Node *second)
+{
+  Node *l=nullptr;
+  if(first->data<second->data)
+  {
+      th=l=first;
+      first=first->next;
+      l->next=nullptr;
+
+  }
+  else if(first->data>second->data)
+  {
+      th=l=second;
+      second=second->next;
+      l->next=nullptr;
+
+  }
+
+  while(second && first)
+  {
+      if(first->data>second->data)
+      {
+          l->next=second;l=second;second=second->next;l->next=nullptr;
+      }
+      else
+      {
+          l->next=first;l=first;first=first->next;l->next=nullptr;
+      }
+
+  }
+   if(first){l->next=first;}
+    if(second){l->next=second;}
+
+
+}
+int isLoop(Node *p)
+{
+    Node *q;
+    q=head;
+    do
+    {
+     p=p->next;
+     q=q->next;
+     q=q!=nullptr?q->next:nullptr;
+    }while(p&&q);
+    if(p==q)
+        return 1;
+    return 0;
+
+
+}
+
+
+int main()
+{
+    int A[]={2,8,10,15};
+    int n=sizeof(A)/sizeof(A[0]);
+    int B[]={4,7,12,14};
+    int n1=sizeof(B)/sizeof(B[0]);
+    create(A,n);
+    cout<<isLoop(head);
+
+
+
+
+}
